@@ -36,9 +36,19 @@ var log = bunyan.createLogger({
 async.series({
 
     mongoose: function(callback){
-			log.info('Connecting to MongoDB...');
 
-			mongoose.connect(config.mongodb),
+			if(process.env.OPENSHIFT_MONGODB_DB_URL!==undefined)
+			{
+				log.info('Connecting to OpenShift MongoDB cartridge...');
+				connectionString = process.env.OPENSHIFT_MONGODB_DB_URL;
+			}
+			else
+			{
+				log.info('Connecting to local MongoDB...');
+				connectionString = config.mongodb; //Use the connection string loaded from local config file.
+			}
+
+			mongoose.connect(connectionString),
 			db = mongoose.connection;
 
 			//If the connection fails.
