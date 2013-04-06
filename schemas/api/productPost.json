@@ -1,0 +1,24 @@
+{
+		"title": "The JSON schema for creating a new browsing session.",
+		"type": "object",
+		"required": true,
+		"properties": {
+				"name": {
+						"type": "string",
+						"required": true
+				},
+				"description": {
+						"type": "string",
+						"required": true
+				},
+				"price": {
+						"type": "number",
+						"required": true
+				},
+				"url": {
+						"type": "string",
+						"required": true
+				}
+		},
+		"additionalProperties": false
+}

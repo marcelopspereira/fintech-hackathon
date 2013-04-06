@@ -77,7 +77,8 @@ async.series({
 				var routes = [
 					require('./src/routes/main.js')(app, db, packageManifest, log),
 					require('./src/routes/user.js')(app, db, packageManifest, log),
-					require('./src/routes/session.js')(app, db, packageManifest, log)
+					require('./src/routes/session.js')(app, db, packageManifest, log),
+					require('./src/routes/product.js')(app, db, packageManifest, log)
 				];
 
 				app.listen(8080, function (server) {

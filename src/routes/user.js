@@ -1,6 +1,5 @@
 // Used for determining info about the machine the server is running on.
 var	validator     = require(process.cwd()+'/src/validationFilter.js'),
-		restify       = require('restify'),
 		passwordHash  = require('password-hash'),
 		User					= require(process.cwd()+'/src/models/user.js').model,
 		S							= require('string');
@@ -35,7 +34,7 @@ module.exports = function (server, db, packageManifest, log) {
 				}
 				else
 				{
-					res.send(userData);
+					return res.send(200);
 				}
 			});
 		}
