@@ -23,7 +23,8 @@
 		"bunyan"									:	"*",
 		"mongoose"								: "*",
 		"mongoose-gen"						: "*",
-		"json-schema"							: "*"
+		"json-schema"							: "*",
+		"password-hash"						: "*"
 	},
 	"analyze": true,
 	"license": "MIT",

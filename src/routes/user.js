@@ -1,8 +1,9 @@
 // Used for determining info about the machine the server is running on.
-var mongoose = require('mongoose'),
-		generator = require('mongoose-gen'),
-		validator = require(process.cwd()+'/src/validationFilter.js'),
-		restify = require('restify');
+var mongoose      = require('mongoose'),
+		generator     = require('mongoose-gen'),
+		validator     = require(process.cwd()+'/src/validationFilter.js'),
+		restify       = require('restify'),
+		passwordHash  = require('password-hash');
 
 generator.setConnection(mongoose); // Connect the schema generator to Mongoose.
 
@@ -20,7 +21,8 @@ module.exports = function (server, db, packageManifest) {
 			//Fill in a few more properties.
 			userData = req.body;
 			userData.accountCreationDate = Math.floor(new Date().getTime()/1000);
-			res.send(req.body);
+			userData.password = passwordHash.generate('password123');
+			res.send(userData);
 		}
 		return next();
 	});
