@@ -1,3 +1,10 @@
+var express = require("express");
+  var app = express();
+
+app.use(express.static(__dirname+'/public.old'));
+
+app.listen(1337);
+
 //Static JSON data files.
 var packageManifest = require('./package.json'),
 		config = require('./config');
