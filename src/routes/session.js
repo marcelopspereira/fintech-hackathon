@@ -1,40 +1,38 @@
 // Used for determining info about the machine the server is running on.
-var mongoose      = require('mongoose'),
-		generator     = require('mongoose-gen'),
-		validator     = require(process.cwd()+'/src/validationFilter.js'),
+var	validator     = require(process.cwd()+'/src/validationFilter.js'),
 		restify       = require('restify'),
-		passwordHash  = require('password-hash');
-
-generator.setConnection(mongoose); // Connect the schema generator to Mongoose.
-
-//Load the JSON schema for the MongoDB user model.
-var sessionSchema = require(process.cwd()+'/schemas/models/user.json');
-var Session = generator.schema('Session',sessionSchema);
+		passwordHash  = require('password-hash'),
+		Session				= require(process.cwd()+'/src/models/session.js').model;
+		User				= require(process.cwd()+'/src/models/user.js').model;
 
 module.exports = function (server, db, packageManifest, log) {
 
-	server.post({path: '/user', version: '1.0.0'}, function (req, res, next ) {
+	server.post({path: '/session', version: '1.0.0'}, function (req, res, next ) {
 		//Verify that the request body has the proper format for a user post.
 		result = validator.validateAgainstSchema(req, res, 'sessionPost');
 		if(result === true)
 		{
-			//Fill in a few more properties.
-			userData = req.body;
-			userData.accountCreationDate = Math.floor(new Date().getTime()/1000);
-			userData.password = passwordHash.generate('password123');
+			//Check to see if the email / password combo can be foune.
+			sessionLookup = req.body;
+			passwordHash = passwordHash.generate(sessionLookup.password);
 
-			var newUser = new User(userData);
-			newUser.save(function (err) {
-				if(err)
-					log.error(err);
+			var query = User.findOne({
+				email: sessionLookup.email,
+				password: passwordHash
 			});
-			res.send(userData);
-		}
-		return next();
-	});
 
-	server.get({path: '/user/:id', version: '1.0.0'}, function(req, res, next ) {
-		res.send({'response': 'get user'});
+			query.select('_id');
+
+			// execute the query at a later time
+			query.exec(function (err, user) {
+				if (err) return handleError(err);
+				console.log(user);
+			});
+
+			//Create the new session
+			//var newSession = new Session(sessionData);
+
+		}
 		return next();
 	});
 

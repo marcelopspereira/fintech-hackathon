@@ -63,7 +63,8 @@ async.series({
 			//Create the routes.
 			var routes = [
 				require('./src/routes/main.js')(server, db, packageManifest, log),
-				require('./src/routes/user.js')(server, db, packageManifest, log)
+				require('./src/routes/user.js')(server, db, packageManifest, log),
+				require('./src/routes/session.js')(server, db, packageManifest, log)
 			];
 
 			server.listen(8080, function () {
