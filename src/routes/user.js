@@ -7,7 +7,7 @@ var	validator     = require(process.cwd()+'/src/validationFilter.js'),
 
 module.exports = function (server, db, packageManifest, log) {
 
-	server.post('/user', function (req, res) {
+	server.post('/api/user', function (req, res) {
 		//Verify that the request body has the proper format for a user post.
 		result = validator.validateAgainstSchema(req, res, 'userPost');
 		if(result === true)
@@ -41,7 +41,7 @@ module.exports = function (server, db, packageManifest, log) {
 		}
 	});
 
-	server.get('/user/:id', function(req, res) {
+	server.get('/api/user/:id', function(req, res) {
 		res.send({'response': 'get user'});
 	});
 
