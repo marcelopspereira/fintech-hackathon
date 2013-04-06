@@ -2,7 +2,7 @@ var mongoose      = require('mongoose');
 
 var schema = new mongoose.Schema({
 	application: String,
-	userID: String,
+	user: String,
 	token: String,
 	time: {
 		type: Date,

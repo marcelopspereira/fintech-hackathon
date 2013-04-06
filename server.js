@@ -69,7 +69,7 @@ async.series({
 					app.use(app.router);
 					app.use(express.static(__dirname+'/public'));
 					app.use(function (err, req, res, next) {
-						log.error(err.stack);
+						log.error(err);
 					});
 				});
 
