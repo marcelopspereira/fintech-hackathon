@@ -11,7 +11,7 @@ generator.setConnection(mongoose); // Connect the schema generator to Mongoose.
 var userSchema = require(process.cwd()+'/schemas/models/user.json');
 var User = generator.schema('User',userSchema);
 
-module.exports = function (server, db, packageManifest) {
+module.exports = function (server, db, packageManifest, log) {
 
 	server.post({path: '/user', version: '1.0.0'}, function (req, res, next ) {
 		//Verify that the request body has the proper format for a user post.
@@ -22,6 +22,12 @@ module.exports = function (server, db, packageManifest) {
 			userData = req.body;
 			userData.accountCreationDate = Math.floor(new Date().getTime()/1000);
 			userData.password = passwordHash.generate('password123');
+
+			var newUser = new User(userData);
+			newUser.save(function (err) {
+				if(err)
+					log.error(err);
+			});
 			res.send(userData);
 		}
 		return next();
