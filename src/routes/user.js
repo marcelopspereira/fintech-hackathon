@@ -7,7 +7,7 @@ var	validator     = require(process.cwd()+'/src/validationFilter.js'),
 
 module.exports = function (server, db, packageManifest, log) {
 
-	server.post({path: '/user', version: '1.0.0'}, function (req, res, next ) {
+	server.post('/user', function (req, res) {
 		//Verify that the request body has the proper format for a user post.
 		result = validator.validateAgainstSchema(req, res, 'userPost');
 		if(result === true)
@@ -23,7 +23,10 @@ module.exports = function (server, db, packageManifest, log) {
 				{
 					if(S(err.err).contains('duplicate key'))
 					{
-						return next(new restify.InvalidArgumentError("Email address already in use."));
+						return res.send(409, {
+							'code': 'InvalidArgument',
+							'message': 'The specified email address is already in use.'
+						});
 					}
 					else
 					{
@@ -33,15 +36,13 @@ module.exports = function (server, db, packageManifest, log) {
 				else
 				{
 					res.send(userData);
-					return next();
 				}
 			});
 		}
 	});
 
-	server.get({path: '/user/:id', version: '1.0.0'}, function(req, res, next ) {
+	server.get('/user/:id', function(req, res) {
 		res.send({'response': 'get user'});
-		return next();
 	});
 
 };

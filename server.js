@@ -1,17 +1,10 @@
-var express = require("express");
-  var app = express();
-
-app.use(express.static(__dirname+'/public'));
-
-app.listen(1337);
-
 //Static JSON data files.
 var packageManifest = require('./package.json'),
 		config = require('./config');
 
-// Some core package requirements.
-var async = require('async'),					// For doing async stuff.
-		restify = require('restify'),			// REST API framework.
+// Core package requirements.
+var express = require("express"),
+		async = require('async'),					// For doing async stuff.
 		bunyan = require('bunyan'),				// Logging framework.
 		mongoose = require('mongoose'),		// MongoDB framwork.
 		fs = require('fs');
@@ -22,17 +15,6 @@ try {
 }
 catch (e) {
 	fs.mkdirSync(process.cwd()+'/logs');
-}
-
-//Make sure that the log folder exists.
-try {
-	stats = fs.lstatSync(process.cwd()+'/logs');
-	if(!stats.isDirectory()) {
-		fs.mkdirSync(process.cwd()+'/logs');
-	}
-}
-catch (e) {
-	console.log("Could not create the /logs folder, please create it manually.");
 }
 
 //Create the logging interface
@@ -77,43 +59,35 @@ async.series({
     restify: function(callback){
 			log.info('Creating server...');
 
-			var server = restify.createServer({
-				name: packageManifest.name,
-				version: packageManifest.version,
-				log: log
-			});
+			try
+			{
+				var app = express();
 
-			//Attach some extra components to the server.
-			server.use(restify.gzipResponse());  //Gzip support
-			server.use(restify.bodyParser({ mapParams: false }));    //Parse a variety of different incoming POST body formats.
+				app.configure(function () {
+					app.use(express.bodyParser());
+					app.use(express.methodOverride());
+					app.use(app.router);
+					app.use(express.static(__dirname+'/public'));
+					app.use(function (err, req, res, next) {
+						log.error(err.stack);
+					});
+				});
 
-			//Create the routes.
-			var routes = [
-				require('./src/routes/main.js')(server, db, packageManifest, log),
-				require('./src/routes/user.js')(server, db, packageManifest, log),
-				require('./src/routes/session.js')(server, db, packageManifest, log)
-			];
+				//Create the routes.
+				var routes = [
+					require('./src/routes/main.js')(app, db, packageManifest, log),
+					require('./src/routes/user.js')(app, db, packageManifest, log),
+					require('./src/routes/session.js')(app, db, packageManifest, log)
+				];
 
-			server.listen(8080, function () {
-				log.info(server.name+' listening at '+server.url);
-				callback(null, true);
-			});
-
-			server.on('after', restify.auditLogger({
-					log: bunyan.createLogger({
-					name: 'audit',
-					stream: process.stdout
-				})
-			}));
-
-			server.on('uncaughtException', function (request, response, route, error) {
-				log.info('Uncaught exception on request '+request+'\n'+error);
-				response.send(new restify.InternalError('Uncaught Exception: '+error));
-			});
-
-			server.on('error', function (error) {
-				log.info('Uncaught error '+error);
-			});
+				app.listen(8080, function (server) {
+					log.info("Server started and listening.");
+				});
+			}
+			catch(e)
+			{
+				console.log(e);
+			}
     }
 
 },
@@ -129,3 +103,6 @@ function(err, startupComponents) {
 	else
 		log.error("Unable to continue. Some components failed to start.",startupComponents);
 });
+
+
+

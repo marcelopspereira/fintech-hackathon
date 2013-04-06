@@ -2,13 +2,12 @@
 var os = require("os");
 
 module.exports = function (server, db, packageManifest, log) {
-	server.get({path: '/', version: '1.0.0'}, function(req, res, next ) {
+	server.get('/api', function(req, res) {
 		res.send({
 			server: packageManifest.name,
 			machine: os.hostname(),
 			version: packageManifest.version
 		});
-		return next();
 	});
 };
 

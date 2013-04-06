@@ -1,2 +1,2 @@
 
-node server.js  | ./node_modules/bunyan/bin/bunyan -o short
+supervisor server.js  | ./node_modules/bunyan/bin/bunyan -o short

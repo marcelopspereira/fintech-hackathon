@@ -7,7 +7,7 @@ var	validator     = require(process.cwd()+'/src/validationFilter.js'),
 
 module.exports = function (server, db, packageManifest, log) {
 
-	server.post({path: '/session', version: '1.0.0'}, function (req, res, next ) {
+	server.post('/session', function (req, res) {
 		//Verify that the request body has the proper format for a user post.
 		result = validator.validateAgainstSchema(req, res, 'sessionPost');
 		if(result === true)
@@ -28,12 +28,6 @@ module.exports = function (server, db, packageManifest, log) {
 			});
 
 			res.send({result: 'test'});
-
-			return next();
-		}
-		else
-		{
-			return next();
 		}
 	});
 };
