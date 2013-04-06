@@ -6,14 +6,22 @@
 	<link href="assets/css/bootstrap-image-gallery.min.css" rel="stylesheet" />
 	<style type="text/css">
 	body {
-	padding-top: 60px;
-	background:
-	radial-gradient(black 15%, transparent 16%) 0 0,
-	radial-gradient(black 15%, transparent 16%) 8px 8px,
-	radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 0 1px,
-	radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 8px 9px;
-	background-color:#282828;
-	background-size:16px 16px;
+		padding-top: 60px;
+		background:
+		radial-gradient(black 15%, transparent 16%) 0 0,
+		radial-gradient(black 15%, transparent 16%) 8px 8px,
+		radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 0 1px,
+		radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 8px 9px;
+		background-color:#282828;
+		background-size:16px 16px;
+		color: rgb(150,150,150);
+	}
+	#gallery img {
+		width: 9%;
+		padding: 1%;
+	}
+	.modal-gallery, .modal-gallery img {
+		max-height: 600px !important;
 	}
 	</style>
 </head>
@@ -47,7 +55,7 @@
 		<button id="start-slideshow" class="btn btn-large btn-success" data-slideshow="5000" data-target="#modal-gallery" data-selector="#gallery a[rel=gallery]" style="float:right;">Slideshow</button>
 		<button id="toggle-fullscreen" class="btn btn-large btn-primary" data-toggle="button" style="float:right;">Fullscreen</button>
 	</header>
-	<div id="gallery" data-toggle="modal-gallery" data-target="#modal-gallery" style="clear:both;"></div>
+	<div id="gallery" data-toggle="modal-gallery" data-target="#modal-gallery" style="clear:both; width:100%; margin: 1%;"></div>
 	<br>
 </div>
 
@@ -83,6 +91,6 @@
 <script src='components/jquery/jquery.min.js'></script>
 <script src='components/bootstrap/bootstrap/js/bootstrap.min.js'></script>
 <script src="assets/js/load-image.min.js"></script>
-<script src="assets/js/bootstrap-image-gallery.min.js"></script>
+<script src="assets/js/bootstrap-image-gallery.js"></script>
 <script src="assets/js/main.js"></script>
 </html>

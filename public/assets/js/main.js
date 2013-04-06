@@ -70,7 +70,7 @@ $(function () {
                 photo.server + '/' + photo.id + '_' + photo.secret;
             $('<a data-gallery="gallery"/>')
                 .append($('<img>').prop('src', url + '_s.jpg'))
-                .prop('href', url + '_b.jpg')
+                .prop('href', url + '.jpg')
                 .prop('title', photo.title)
                 .appendTo(gallery);
         });
