@@ -1,0 +1,33 @@
+{
+	"name": "fintech-hackathon",
+	"version": "0.0.1",
+	"author": "Nathan Peck <nathan@storydesk.com>",
+	"description": "The StoryDesk API",
+	"contributors": [
+		{
+			"name": "Jason Ghent",
+			"email": "jason.ghent@storydesk.com"
+		},
+		{
+			"name": "Fernando Bunn",
+			"email": "fernando@storydesk.com"
+		}
+	],
+	"repository": {
+		"type": "git",
+		"url": ""
+	},
+	"dependencies" : {
+		"async"										:	"*",
+		"restify"									:	"*",
+		"bunyan"									:	"*",
+		"mongoose"								: "*",
+		"mongoose-gen"						: "*",
+		"json-schema"							: "*"
+	},
+	"analyze": true,
+	"license": "MIT",
+	"engines": {
+		"node": ">=0.6"
+	}
+}
