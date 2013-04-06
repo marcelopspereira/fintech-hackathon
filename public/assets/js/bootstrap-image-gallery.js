@@ -167,8 +167,8 @@
                 clone,
                 forceReflow;
             modalImage.css({
-                width: img.width,
-                height: img.height
+                width: img.width*0.60,
+                height: img.height*0.60
             });
             modal.find('.modal-title').css({ width: Math.max(img.width, 380) });
             if (transition) {
@@ -392,6 +392,8 @@
                         $.extend(data.options, options);
                     }
                     modal.modal(options);
+										var modalInfo = modal.find('.image-info').empty();
+										modalInfo.append("test");
                 }
             }
         );
