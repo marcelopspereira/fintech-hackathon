@@ -13,7 +13,19 @@ var packageManifest = require('./package.json'),
 var async = require('async'),					// For doing async stuff.
 		restify = require('restify'),			// REST API framework.
 		bunyan = require('bunyan'),				// Logging framework.
-		mongoose = require('mongoose');		// MongoDB framwork.
+		mongoose = require('mongoose'),		// MongoDB framwork.
+		fs = require('fs');
+
+//Make sure that the log folder exists.
+try {
+	stats = fs.lstatSync(process.cwd()+'/logs');
+	if(!stats.isDirectory()) {
+		fs.mkdirSync(process.cwd()+'/logs');
+	}
+}
+catch (e) {
+	console.log("Could not create the /logs folder, please create it manually.");
+}
 
 //Create the logging interface
 var log = bunyan.createLogger({

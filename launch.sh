@@ -1,2 +1,2 @@
 
-node api.js  | ./node_modules/bunyan/bin/bunyan -o short
+node server.js  | ./node_modules/bunyan/bin/bunyan -o short
