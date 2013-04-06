@@ -1,0 +1,20 @@
+{
+		"title": "The JSON schema for creating a new browsing session.",
+		"type": "object",
+		"required": true,
+		"properties": {
+				"application": {
+						"type": "string",
+						"required": true
+				},
+				"email": {
+						"type": "string",
+						"required": true
+				},
+				"password": {
+						"type": "string",
+						"required": true
+				}
+		},
+		"additionalProperties": false
+}

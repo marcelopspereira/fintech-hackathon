@@ -1,15 +1,9 @@
 // Used for determining info about the machine the server is running on.
-var mongoose      = require('mongoose'),
-		generator     = require('mongoose-gen'),
-		validator     = require(process.cwd()+'/src/validationFilter.js'),
+var	validator     = require(process.cwd()+'/src/validationFilter.js'),
 		restify       = require('restify'),
-		passwordHash  = require('password-hash');
-
-generator.setConnection(mongoose); // Connect the schema generator to Mongoose.
-
-//Load the JSON schema for the MongoDB user model.
-var userSchema = require(process.cwd()+'/schemas/models/user.json');
-var User = generator.schema('User',userSchema);
+		passwordHash  = require('password-hash'),
+		User					= require(process.cwd()+'/src/models/user.js').model,
+		S							= require('string');
 
 module.exports = function (server, db, packageManifest, log) {
 
@@ -20,17 +14,29 @@ module.exports = function (server, db, packageManifest, log) {
 		{
 			//Fill in a few more properties.
 			userData = req.body;
-			userData.accountCreationDate = Math.floor(new Date().getTime()/1000);
-			userData.password = passwordHash.generate('password123');
+			userData.password = passwordHash.generate(userData.password);
 
 			var newUser = new User(userData);
+
 			newUser.save(function (err) {
 				if(err)
-					log.error(err);
+				{
+					if(S(err.err).contains('duplicate key'))
+					{
+						return next(new restify.InvalidArgumentError("Email address already in use."));
+					}
+					else
+					{
+						console.log(err);
+					}
+				}
+				else
+				{
+					res.send(userData);
+					return next();
+				}
 			});
-			res.send(userData);
 		}
-		return next();
 	});
 
 	server.get({path: '/user/:id', version: '1.0.0'}, function(req, res, next ) {

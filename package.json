@@ -24,7 +24,8 @@
 		"mongoose"								: "*",
 		"mongoose-gen"						: "*",
 		"json-schema"							: "*",
-		"password-hash"						: "*"
+		"password-hash"						: "*",
+		"string"									: "*"
 	},
 	"analyze": true,
 	"license": "MIT",
