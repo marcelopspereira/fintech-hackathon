@@ -14,14 +14,22 @@
 		radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 8px 9px;
 		background-color:#282828;
 		background-size:16px 16px;
-		color: rgb(150,150,150);
+		color: rgb(255,255,250);
 	}
 	#gallery img {
 		width: 9%;
 		padding: 1%;
 	}
-	.modal-gallery, .modal-gallery img {
+	.modal-gallery, .modal-footer {
 		max-height: 600px !important;
+		background: rgb(58,58,58) !important;
+	}
+	.image-info {
+		width: 40% !important;
+		height: 90%;
+		position: absolute;
+		display: block;
+		right: 1%;
 	}
 	</style>
 </head>
@@ -37,23 +45,85 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</a>
-			<a class="brand" href="https://github.com/blueimp/Bootstrap-Image-Gallery">fin</a>
+			<a class="brand" class="active">finHack</a>
 			<div class="nav-collapse">
 				<ul class="nav">
-					<li class=""><a href="#">Profile</a></li>
-					<li class="active"><a href="#">Items</a></li>
+					<li class="items"><a href="#">Items</a></li>
+					<li class="profile"><a href="#">Profile</a></li>
 				</ul>
 			</div>
 		</div>
 	</div>
 </div>
 
-<!-- body -->
-<div class="container-fluid">
+<!-- body 0 -->
+<div class="container-fluid" id="empty" style="width: 50%; min-width: 300px; margin: auto; background: black; opacity: 1; border-radius: 10px; border: 1px solid whitesmoke; padding-top: 10px;">
+  <ul class="nav nav-tabs">
+    <li class="active"><a href="#login" data-toggle="tab">Login</a></li>
+    <li><a href="#create" data-toggle="tab">Create Account</a></li>
+  </ul>
+  <div id="myTabContent" class="tab-content">
+    <div class="tab-pane active in" id="login">
+        <fieldset>
+          <div class="control-group">
+            <!-- Username -->
+            <label class="control-label"  for="username">Username</label>
+            <div class="controls">
+              <input type="text" id="username" name="username" placeholder="" class="input-xlarge">
+            </div>
+          </div>
+
+          <div class="control-group">
+            <!-- Password-->
+            <label class="control-label" for="password">Password</label>
+            <div class="controls">
+              <input type="password" id="password" name="password" placeholder="" class="input-xlarge">
+            </div>
+          </div>
+
+
+          <div class="control-group">
+            <!-- Button -->
+            <div class="controls">
+              <button class="btn btn-primary" id="login-submit">Login</button>
+            </div>
+          </div>
+        </fieldset>
+    </div>
+    <div class="tab-pane fade" id="create">
+      <form id="tab">
+        <label>Username</label>
+        <input type="text" value="" class="input-xlarge">
+        <label>First Name</label>
+        <input type="text" value="" class="input-xlarge">
+        <label>Last Name</label>
+        <input type="text" value="" class="input-xlarge">
+        <label>Email</label>
+        <input type="text" value="" class="input-xlarge">
+        <label>Address</label>
+        <textarea value="Smith" rows="3" class="input-xlarge">
+        </textarea>
+
+        <div>
+          <button class="btn btn-primary">Create Account</button>
+        </div>
+      </form>
+    </div>
+	</div>
+</div>
+
+<!-- body 1 -->
+<div class="container-fluid" style="display:none;" id="user">
+	<header>
+		<h1 style="float:left;" >User Info</h1>
+	</header>
+	<br>
+</div>
+
+<!-- body 2 -->
+<div class="container-fluid" style="display:none;" id="pg">
 	<header>
 		<h1 style="float:left;">Product Gallery</h1>
-		<button id="start-slideshow" class="btn btn-large btn-success" data-slideshow="5000" data-target="#modal-gallery" data-selector="#gallery a[rel=gallery]" style="float:right;">Slideshow</button>
-		<button id="toggle-fullscreen" class="btn btn-large btn-primary" data-toggle="button" style="float:right;">Fullscreen</button>
 	</header>
 	<div id="gallery" data-toggle="modal-gallery" data-target="#modal-gallery" style="clear:both; width:100%; margin: 1%;"></div>
 	<br>
@@ -65,11 +135,13 @@
 	<a class="close" data-dismiss="modal">&times;</a>
 	<h3 class="modal-title"></h3>
 	</div>
-	<div class="modal-body"><div class="modal-image"></div></div>
+	<div class="modal-body">
+		<div class="modal-image" style="float:left;"></div>
+		<div class="image-info"></div>
+	</div>
 	<div class="modal-footer">
-	<a class="btn modal-download" target="_blank">
-		<i class="icon-download"></i>
-		<span>Download</span>
+	<a class="btn btn-primary" target="_blank">
+		<span>Update</span>
 	</a>
 	<a class="btn btn-success modal-play modal-slideshow" data-slideshow="5000">
 		<i class="icon-play icon-white"></i>
@@ -79,7 +151,7 @@
 		<i class="icon-arrow-left icon-white"></i>
 		<span>Previous</span>
 	</a>
-	<a class="btn btn-primary modal-next">
+	<a class="btn btn-info modal-next">
 		<span>Next</span>
 		<i class="icon-arrow-right icon-white"></i>
 	</a>
@@ -93,4 +165,5 @@
 <script src="assets/js/load-image.min.js"></script>
 <script src="assets/js/bootstrap-image-gallery.js"></script>
 <script src="assets/js/main.js"></script>
+<script src="assets/js/js.js"></script>
 </html>
