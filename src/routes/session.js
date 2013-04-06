@@ -5,7 +5,8 @@ var	validator     = require(process.cwd()+'/src/validationFilter.js'),
 		passwordHash  = require('password-hash'),
 		Session				= require(process.cwd()+'/src/models/session.js').model,
 		User					= require(process.cwd()+'/src/models/user.js').model,
-		crypto				= require('crypto');
+		crypto				= require('crypto'),
+		sessionFilter = require(process.cwd()+'/src/sessionFilter.js');
 
 module.exports = function (server, db, packageManifest, log) {
 
@@ -33,34 +34,29 @@ module.exports = function (server, db, packageManifest, log) {
 						if(passwordHash.verify(req.body.password, user.password))
 						{
 							//The login is correct. Generate a session token and save it in the session table.
-							async.series({
-
-									generateToken: function (callback) {
+							async.waterfall([
+									function (callback) {
+										log.info('Generating crypto token');
 										crypto.randomBytes(48, function(ex, buf) {
 											callback(null, buf.toString('hex'));
 										});
 									},
-
-									saveSession: function (callback, token) {
+									function (token, callback) {
 										var sessionData = {
 											user: user._id,
 											application: req.body.application,
 											token: token
 										};
 
-										//var newSession = new Session(sessionData);
+										var newSession = new Session(sessionData);
 
 										newSession.save(function (err) {
-											res.send(sessionData);
-											callback(null, true);
+											callback(null, sessionData);
 										});
 									}
-								},
+								],
 								function (err, result) {
-									if(result !== true)
-									{
-										log.error(result);
-									}
+									res.send(result);
 								}
 							);
 						}
@@ -72,9 +68,24 @@ module.exports = function (server, db, packageManifest, log) {
 							});
 						}
 					}
-					res.send({err: err, user: user});
 				}
 			);
 		}
+	});
+
+	server.get('/api/session/test', function(req, res) {
+		sessionFilter.validate(req, res, function (userID) {
+			if(userID===null)
+			{
+				return;
+			}
+			else
+			{
+				res.send(200, {
+					'code': 'Good',
+					'message': userID
+				});
+			}
+		});
 	});
 };
