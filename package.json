@@ -20,6 +20,7 @@
 	"dependencies" : {
 		"async"										:	"*",
 		"restify"									:	"*",
+		"express"	:	"*",
 		"bunyan"									:	"*",
 		"mongoose"								: "*",
 		"mongoose-gen"						: "*",
