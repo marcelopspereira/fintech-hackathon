@@ -4,28 +4,85 @@
 	<link href='components/bootstrap/bootstrap/css/bootstrap.min.css' rel='stylesheet' />
 	<link href='components/bootstrap/bootstrap/css/bootstrap-responsive.min.css' type='stylesheet' />
 	<link href="assets/css/bootstrap-image-gallery.min.css" rel="stylesheet" />
+	<style type="text/css">
+	body {
+	padding-top: 60px;
+	background:
+	radial-gradient(black 15%, transparent 16%) 0 0,
+	radial-gradient(black 15%, transparent 16%) 8px 8px,
+	radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 0 1px,
+	radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 8px 9px;
+	background-color:#282828;
+	background-size:16px 16px;
+	}
+	</style>
 </head>
 
 <body>
 
+<!-- body header -->
+<div class="navbar navbar-fixed-top navbar-inverse">
+	<div class="navbar-inner">
+		<div class="container-fluid">
+			<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</a>
+			<a class="brand" href="https://github.com/blueimp/Bootstrap-Image-Gallery">fin</a>
+			<div class="nav-collapse">
+				<ul class="nav">
+					<li class=""><a href="#">Profile</a></li>
+					<li class="active"><a href="#">Items</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- body -->
+<div class="container-fluid">
+	<header>
+		<h1 style="float:left;">Product Gallery</h1>
+		<button id="start-slideshow" class="btn btn-large btn-success" data-slideshow="5000" data-target="#modal-gallery" data-selector="#gallery a[rel=gallery]" style="float:right;">Slideshow</button>
+		<button id="toggle-fullscreen" class="btn btn-large btn-primary" data-toggle="button" style="float:right;">Fullscreen</button>
+	</header>
+	<div id="gallery" data-toggle="modal-gallery" data-target="#modal-gallery" style="clear:both;"></div>
+	<br>
+</div>
+
 <!-- modal-gallery is the modal dialog used for the image gallery -->
 <div id="modal-gallery" class="modal modal-gallery hide fade" tabindex="-1">
 	<div class="modal-header">
-		<a class="close" data-dismiss="modal">&times;</a>
-		<h3 class="modal-title"></h3>
+	<a class="close" data-dismiss="modal">&times;</a>
+	<h3 class="modal-title"></h3>
 	</div>
 	<div class="modal-body"><div class="modal-image"></div></div>
 	<div class="modal-footer">
-		<a class="btn btn-primary modal-next">Next <i class="icon-arrow-right icon-white"></i></a>
-		<a class="btn btn-info modal-prev"><i class="icon-arrow-left icon-white"></i> Previous</a>
-		<a class="btn btn-success modal-play modal-slideshow" data-slideshow="5000"><i class="icon-play icon-white"></i> Slideshow</a>
-		<a class="btn modal-download" target="_blank"><i class="icon-download"></i> Download</a>
+	<a class="btn modal-download" target="_blank">
+		<i class="icon-download"></i>
+		<span>Download</span>
+	</a>
+	<a class="btn btn-success modal-play modal-slideshow" data-slideshow="5000">
+		<i class="icon-play icon-white"></i>
+		<span>Slideshow</span>
+	</a>
+	<a class="btn btn-info modal-prev">
+		<i class="icon-arrow-left icon-white"></i>
+		<span>Previous</span>
+	</a>
+	<a class="btn btn-primary modal-next">
+		<span>Next</span>
+		<i class="icon-arrow-right icon-white"></i>
+	</a>
 	</div>
 </div>
+
 </body>
 
 <script src='components/jquery/jquery.min.js'></script>
 <script src='components/bootstrap/bootstrap/js/bootstrap.min.js'></script>
-<script src="http://blueimp.github.com/JavaScript-Load-Image/load-image.min.js"></script>
-<script src="js/bootstrap-image-gallery.min.js"></script>
+<script src="assets/js/load-image.min.js"></script>
+<script src="assets/js/bootstrap-image-gallery.min.js"></script>
+<script src="assets/js/main.js"></script>
 </html>
