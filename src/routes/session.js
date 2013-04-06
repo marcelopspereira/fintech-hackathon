@@ -3,7 +3,7 @@ var	validator     = require(process.cwd()+'/src/validationFilter.js'),
 		restify       = require('restify'),
 		passwordHash  = require('password-hash'),
 		Session				= require(process.cwd()+'/src/models/session.js').model;
-		User				= require(process.cwd()+'/src/models/user.js').model;
+		User					= require(process.cwd()+'/src/models/user.js').model;
 
 module.exports = function (server, db, packageManifest, log) {
 
@@ -12,28 +12,28 @@ module.exports = function (server, db, packageManifest, log) {
 		result = validator.validateAgainstSchema(req, res, 'sessionPost');
 		if(result === true)
 		{
-			//Check to see if the email / password combo can be foune.
+			//Check to see if the email / password combo can be found.
 			sessionLookup = req.body;
-			passwordHash = passwordHash.generate(sessionLookup.password);
+			hashedPassword = passwordHash.generate(sessionLookup.password);
 
+			//Build the query to look up the user by their email address and password hash.
 			var query = User.findOne({
 				email: sessionLookup.email,
-				password: passwordHash
+				password: hashedPassword
 			});
 
-			query.select('_id');
-
-			// execute the query at a later time
+			// Execute the query.
 			query.exec(function (err, user) {
-				if (err) return handleError(err);
-				console.log(user);
+				console.log("response");
 			});
 
-			//Create the new session
-			//var newSession = new Session(sessionData);
+			res.send({result: 'test'});
 
+			return next();
 		}
-		return next();
+		else
+		{
+			return next();
+		}
 	});
-
 };
