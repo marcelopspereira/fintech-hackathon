@@ -19,11 +19,9 @@
 	},
 	"dependencies" : {
 		"async"										:	"*",
-		"restify"									:	"*",
 		"express"									:	"*",
 		"bunyan"									:	"*",
 		"mongoose"								: "*",
-		"mongoose-gen"						: "*",
 		"json-schema"							: "*",
 		"password-hash"						: "*",
 		"string"									: "*"
