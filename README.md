@@ -5,8 +5,11 @@ The initial API stub for our entry to the Fintech Hackathon. Currently running l
 
 [http://fintech-fintechhackathon.rhcloud.com/](http://fintech-fintechhackathon.rhcloud.com/)
 
+Installation Locally
+====================
+
 1. Run `npm install` to download and set up all required libraries.
-2. Start a MongoDB instance locally, or modify the configuration file to point to an existing DB.
+2. Start a MongoDB instance locally, or modify the configuration file to point to an existing MongoDB.
 3. Run `launch.sh` to start the server, note that this launch script requires `supervisor` to run.
    It can be installed with `npm install -g supervisor`
 
