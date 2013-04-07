@@ -121,8 +121,8 @@ $(function () {
 						contentType: "application/json",
 						data: JSON.stringify({
 							'application': "web",
-							'email': $('#emailAddress').val(),
-							'password': userPassword
+							'email': 'fintechdemo@test.com',//$('#emailAddress').val(),
+							'password': 'test'//userPassword
 						}),
 						statusCode: {
 							409: function () {
