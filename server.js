@@ -96,11 +96,11 @@ async.series({
 				});
 
 				//Determine what port / address we are listening on.
-				if(process.env.OPENSHIFT_INTERNAL_IP!==undefined)
+				if(process.env.OPENSHIFT_NODEJS_IP!==undefined)
 				{
 					log.info('Running server in OpenShift');
-					port = process.env.OPENSHIFT_INTERNAL_PORT;
-					hostname = process.env.OPENSHIFT_INTERNAL_HOSTNAME;
+					port = process.env.OPENSHIFT_NODEJS_PORT;
+					hostname = process.env.OPENSHIFT_NODEJS_IP;
 				}
 				else
 				{
