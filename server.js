@@ -66,7 +66,7 @@ async.series({
 			});
     },
 
-    restify: function(callback){
+    express: function(callback){
 			log.info('Creating server...');
 
 			try
@@ -91,8 +91,12 @@ async.series({
 					require('./src/routes/product.js')(app, db, packageManifest, log)
 				];
 
+				app.on('error', function (stream) {
+					console.log('error');
+				});
+
 				app.listen(8080, function (server) {
-					log.info("Server started and listening.");
+					log.info("Server started and listening...");
 				});
 			}
 			catch(e)
