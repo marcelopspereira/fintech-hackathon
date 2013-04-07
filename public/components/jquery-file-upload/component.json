@@ -1,0 +1,8 @@
+{
+  "name": "jquery-file-upload",
+  "version": "7.4.1",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/blueimp/jQuery-File-Upload.git"
+  }
+}
