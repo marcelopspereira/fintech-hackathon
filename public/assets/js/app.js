@@ -5,6 +5,7 @@ String.prototype.format = function() {
   });
 };
 
+var config = new Object();
 function password()
 {
     var text = "";
@@ -116,6 +117,75 @@ $(function () {
 			}
 		});
 	});
+
+$('#login-submit').click(function(e) {
+	//validate
+	var data = new Object;;
+	var notice = '';
+	vals = $('#login .validate');
+	for (index in vals) {
+		if(index % 1 == 0) { 
+			if($(vals[index]).val() == 0) { 
+				$(vals[index]).addClass('warning');
+				notice += $(vals[index]).attr('name')+' is empty.\r';
+				var invalid = true;
+			}
+			else { 
+				data[$(vals[index]).attr('name').toLowerCase()] = $(vals[index]).val();
+			}
+		}
+	}
+	if(typeof invalid !== 'undefined') {
+		alert(notice); 
+		return false;
+	}
+	
+	//submit request.
+	data.application = 'fin';
+	$.ajax({
+		url: '/api/session',
+		type: "POST",
+		dataType: "json",
+		contentType: "application/json",
+		data: JSON.stringify(data),
+		statusCode: {
+			409: function () {
+				alert("yo' shit busted.");
+			}
+		},
+		success: function(response) {
+			config.user = response;
+			showProducts();
+		}
+	});
+	
+	return false;
+});
+
+	showProducts = function() {
+		$.ajax({
+			url: '/api/products',
+			type: "GET",
+			dataType: "json",
+			contentType: "application/json",
+			data: JSON.stringify({
+				'token': config.user.token,
+				'user': config.user.user
+			}),
+			statusCode: {
+				409: function () {
+					alert("Failure querying products.");
+				}
+			},
+			success: function(response) {
+				//Now use the session token to add each product.
+				for(var counter=0; counter<productNumber; counter++)
+				{
+					publishProduct(counter,config.user.token);
+				}
+			}
+		});
+	};
 
 	$('#main').on('click', '#nextItem', function () {
 		$(this).parent().remove();

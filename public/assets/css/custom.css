@@ -2,6 +2,10 @@ body {
 	background: url('http://i.imgur.com/pDqGwBP.jpg') center;
 }
 
+.warning {
+	border: 1px solid red !important;
+}
+
 .contentDiv
 {
 	margin-bottom: 30px;
