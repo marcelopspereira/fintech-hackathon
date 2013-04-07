@@ -30,22 +30,45 @@
 	</head>
 
 	<body style='margin-top: 50px; margin-bottom: 50px;'>
-		<div id='main'>
-		</div>
-		<div class='contentDiv' id='addImageDialog'>
-				<div class='contentBox'>
-					<div style='padding: 20px;'>
-						<h3>Create A Product</h3>
-						<p>
-							To get started enter the URL of a product image. We recommend a free, reliable image hosting service such as <a href='http://imgur.com'>Imgur</a>.
-						</p>
-						<div class="input-append">
-							<input value='http://i.imgur.com/krvXksZ.jpg' class="span2" id="imageURL" type="text" style='font-size: 20px; height: 35px; width: 480px;'>
-							<button id='addImage' class="btn btn-primary" type="button" style='font-size: 20px; height: 35px;'>Upload</button>
+		<div id='entry' class="contentDiv">
+			<div class="contentBox" style="min-height: 150px;">
+				<div style="padding:20px;">
+					<a class="signIn" style="position:absolute;right:20px;">Sign In</a>
+					<div id='welcome' style="width: 100%; margin: auto; vertical-align: middle; text-align: center; position: relative; top: 20px;">
+						<h3>Mobile Sales Platform</h3>
+						<span><a class="continue">Continue</a></span>
+					</div>
+					<div id='login'>
+						<fieldset>
+							<label>Email</label>
+							<input class='span2' type="text"></input>
+							<label>Password</label>
+							<input class='span2' type="text"></input>
+						</fieldset>
+							<button id='login-submit' class="btn" type="submit" style="">Login</button>
 						</div>
 					</div>
 				</div>
 			</div>
+		</div>
+
+		<div id='main'>
+		</div>
+
+		<div class='contentDiv' id='addImageDialog'>
+			<div class='contentBox'>
+				<div style='padding: 20px;'>
+					<h3>Create A Product</h3>
+					<p>
+						To get started enter the URL of a product image. We recommend a free, reliable image hosting service such as <a href='http://imgur.com'>Imgur</a>.
+					</p>
+					<div class="input-append">
+						<input value='http://i.imgur.com/krvXksZ.jpg' class="span2" id="imageURL" type="text" style='font-size: 20px; height: 35px; width: 480px;'>
+						<button id='addImage' class="btn btn-primary" type="button" style='font-size: 20px; height: 35px;'>Upload</button>
+					</div>
+				</div>
+			</div>
+		</div>
 	</body>
 	<script src='components/jquery/jquery.min.js'></script>
 	<script src='components/bootstrap/bootstrap/js/bootstrap.min.js'></script>

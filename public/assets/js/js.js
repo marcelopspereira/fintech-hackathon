@@ -22,29 +22,16 @@ showItems = function() {
 
 $('.profile').click(function(e) {
 	e.stopPropagation();
-	showProfile();
+	if(typeof config.user.token !== 'undefined') {
+		showProfile();
+	}
 });
 
 $('.items').click(function(e) {
 	e.stopPropagation();
-	$.ajax({
-		url: '/api/session',
-		type: "POST",
-		dataType: "json",
-		contentType: "application/json",
-		data: JSON.stringify(data),
-		statusCode: {
-			409: function () {
-				alert("yo' shit busted.");
-			}
-		},
-		success: function(response) {
-			showItems();
-			config.user = response;
-		}
-	});
-  
-	showItems();
+	if(typeof config.user.token !== 'undefined') {
+		showItems();
+	}
 });
 
 $('#createAccount').click(function(e) {

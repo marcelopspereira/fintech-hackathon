@@ -8,7 +8,8 @@ String.prototype.format = function() {
 $(function () {
 	var productNumber = 0;
 
-	$('#addImage').click(function () {
+	$('#addImage').on('click', function () {
+		$('body').css("background", "url('/assets/img/grey_wash_wall.png')");
 		//Hide the add image dialog.
 		$('#addImageDialog').fadeOut(100,function () {
 			//Show the image.
@@ -31,5 +32,12 @@ $(function () {
 		$(this).parent().remove();
 		$('#addImageDialog').fadeIn(100);
 		$("html, body").animate({ scrollTop: $("#addImageDialog").offset().top });
+	});
+
+	$('.signIn').on('click', function(e) {
+		$('#welcome').hide(); $('#login').show();
+	});
+	$('.continue').on('click', function(e) {
+		$('#entry').hide(); $('#addImageDialog').show();
 	});
 });
