@@ -60,7 +60,6 @@ module.exports = function (server, db, packageManifest, log) {
 							});
 						});
 						res.send(responseProducts);
-						done();
 					});
 			}
 		});
