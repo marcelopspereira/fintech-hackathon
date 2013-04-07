@@ -81,8 +81,8 @@ module.exports = function (server, db, packageManifest, log) {
 			else
 			{
 				res.send(200, {
-					'code': 'Good',
-					'message': userID
+					'user': userID,
+					'message': 'Session credentials are good'
 				});
 			}
 		});
