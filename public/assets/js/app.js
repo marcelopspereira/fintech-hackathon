@@ -66,9 +66,16 @@ function publishProduct(productNumber,token)
   });
 }
 
+var first = true;
+
 $(function () {
 	$('#addImage').click(function () {
-		$('body').css("background", "url('/assets/img/grey_wash_wall.png')");
+		if(first)
+		{
+			$('body').css("background-image", "url(/assets/img/grey_wash_wall.png)");
+			first = false;
+		}
+
 		//Hide the add image dialog.
 		$('#addImageDialog').fadeOut(100,function () {
 			//Show the image.
@@ -146,22 +153,22 @@ $('#login-submit').click(function(e) {
 	var notice = '';
 	vals = $('#login .validate');
 	for (index in vals) {
-		if(index % 1 == 0) { 
-			if($(vals[index]).val() == 0) { 
+		if(index % 1 == 0) {
+			if($(vals[index]).val() == 0) {
 				$(vals[index]).addClass('warning');
 				notice += $(vals[index]).attr('name')+' is empty.\r';
 				var invalid = true;
 			}
-			else { 
+			else {
 				data[$(vals[index]).attr('name').toLowerCase()] = $(vals[index]).val();
 			}
 		}
 	}
 	if(typeof invalid !== 'undefined') {
-//		alert(notice); 
+//		alert(notice);
 		return false;
 	}
-	
+
 	//submit request.
 	data.application = 'fin';
 	$.ajax({
@@ -180,7 +187,7 @@ $('#login-submit').click(function(e) {
 			showProducts();
 		}
 	});
-	
+
 	return false;
 });
 
