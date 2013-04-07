@@ -76,6 +76,7 @@ $(function () {
 			$("#product_number_"+productNumber).fadeIn(100);
 			$("html, body").animate({ scrollTop: $("#product_number_"+productNumber).offset().top });
 			productNumber++;
+			$('#imageURL').val('');
 		});
 	});
 
@@ -86,10 +87,6 @@ $(function () {
 	});
 
 	$('#publishButton').click(function () {
-		$('#publishDialog').fadeOut(100);
-		$('.productDiv').fadeOut(100);
-		$('#publishingDialog').fadeIn(100);
-		$("html, body").animate({ scrollTop: $("#publishingDialog").offset().top });
 		var userPassword = password();
 		$.ajax({
 			url: '/api/user',
@@ -104,6 +101,7 @@ $(function () {
 			statusCode: {
 				409: function () {
 					alert("Failure registering a new account for this email address.");
+					return;
 				},
 				200: function () {
 					//Now get a session token by logging in.
@@ -123,6 +121,10 @@ $(function () {
 							}
 						},
 						success: function(response) {
+							$('#publishDialog').fadeOut(100);
+							$('.productDiv').fadeOut(100);
+							$('#publishingDialog').fadeIn(100);
+							$("html, body").animate({ scrollTop: $("#publishingDialog").offset().top });
 							$('#passwordOutput').text(userPassword);
 							//Now use the session token to add each product.
 							for(var counter=0; counter<productNumber; counter++)
