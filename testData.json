@@ -8,6 +8,13 @@
 	{
 		"name" : "Incredible Sword of Sharpness",
 		"description" : "Vanquish mighty foes with one swing of this deadly weapon!",
-		"price" : 99, "url" : "http://i.imgur.com/Qfczjno.jpg"
+		"price" : 99,
+		"url" : "http://i.imgur.com/Qfczjno.jpg"
+	},
+	{
+		"name" : "Daedric Armor",
+		"description" : "This masterwork armor will protect you from dangers of all sorts.",
+		"price" : 99,
+		"url" : "http://i.imgur.com/krvXksZ.jpg"
 	}
 ]
