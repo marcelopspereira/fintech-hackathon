@@ -47,7 +47,11 @@ module.exports = function (server, db, packageManifest, log) {
 				Product
 					.find({user: userID})
 					.exec(function (err, products) {
-						if (err) return done(err);
+						if(err)
+						{
+							res.send(err);
+							return;
+						}
 
 						var responseProducts = [];
 						products.forEach(function (product) {
