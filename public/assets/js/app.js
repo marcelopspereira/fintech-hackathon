@@ -42,6 +42,28 @@ function publishProduct(productNumber,token)
 		description: $("#product_number_"+productNumber+' .productDescription').attr('value'),
 		price: eval($("#product_number_"+productNumber+' .productPrice').attr('value'))
 	};
+
+	$.ajax({
+    url: '/api/product',
+    type: "POST",
+    dataType: "json",
+    contentType: "application/json",
+    headers: {
+      token: token,
+      application: 'web'
+    },
+    data: JSON.stringify(productDetails),
+    statusCode: {
+      409: function () {
+        alert("Failure saving product "+productNumber);
+      }
+    },
+    success: function(response) {
+
+      //Now use the session token to add each product.
+      advanceProgressBar();
+    }
+  });
 }
 
 $(function () {

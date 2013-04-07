@@ -1,167 +1,85 @@
 <html>
+	<head>
+		<link href='components/bootstrap/bootstrap/css/bootstrap.min.css' rel='stylesheet' />
+		<link href='components/bootstrap/bootstrap/css/bootstrap-responsive.min.css' type='stylesheet' />
+		<link href="assets/css/custom.css" rel="stylesheet" />
 
-<head>
-	<link href='components/bootstrap/bootstrap/css/bootstrap.min.css' rel='stylesheet' />
-	<link href='components/bootstrap/bootstrap/css/bootstrap-responsive.min.css' type='stylesheet' />
-	<link href="assets/css/bootstrap-image-gallery.min.css" rel="stylesheet" />
-	<link rel="stylesheet" href="components/jquery-file-upload/css/jquery.fileupload-ui.css">
-	<noscript><link rel="stylesheet" href="components/jquery-file-upload/css/jquery.fileupload-ui-noscript.css"></noscript>
-	<style type="text/css">
-	body {
-		padding-top: 60px;
-		background: url('assets/img/bg.png');
-		color: rgb(255,255,250);
-	}
-	#gallery img {
-		width: 9%;
-		padding: 1%;
-	}
-	.modal-gallery, .modal-footer {
-		max-height: 600px !important;
-		background: rgb(58,58,58) !important;
-	}
-	.image-info {
-		width: 40% !important;
-		height: 90%;
-		position: absolute;
-		display: block;
-		right: 1%;
-	}
-	</style>
-</head>
+		<script type="text/template" id="productTemplate">
+			<div class='contentDiv productDiv' id='product_number_{1}' style='display: none;'>
+				<div class='contentBox'>
+					<img class='productImage' src='{0}' />
 
-<body>
+					<div style='padding: 20px;'>
+						Product Name:<br />
+						<input value='' class="span2 productName" type="text" style='font-size: 20px; height: 35px; width: 100%;'><br />
 
-<!-- body header -->
-<div class="navbar navbar-fixed-top navbar-inverse">
-	<div class="navbar-inner">
-		<div class="container-fluid">
-			<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			</a>
-			<a class="brand" class="active">finHack</a>
-			<div class="nav-collapse">
-				<ul class="nav">
-					<li class="items"><a href="#">Items</a></li>
-					<li class="profile"><a href="#">Profile</a></li>
-				</ul>
+						Product Description:<br />
+						<input value='' class="span2 productDescription" type="text" style='font-size: 20px; height: 35px; width: 100%;'><br />
+
+						Product Price:<br />
+						<input value='' class="span2 productPrice" type="text" style='font-size: 20px; height: 35px; width: 100%'><br />
+
+						<div class='theButtons'>
+							<input type='button' class='btn btn-large' id='nextItem' value='Save & Add Another Product' style='margin-top: 20px;'/>
+							<input type='button' class='btn btn-large' id='publish' value='Publish' style='margin-top: 20px;'/>
+						</div>
+					</div>
+				</div>
+			</div>
+		</script>
+	</head>
+
+	<body style='margin-top: 50px; margin-bottom: 50px;'>
+		<div id='main'>
+		</div>
+		<div class='contentDiv' id='addImageDialog'>
+			<div class='contentBox'>
+				<div style='padding: 20px;'>
+					<h3>Create A Product</h3>
+					<p>
+						To get started enter the URL of a product image. We recommend a free, reliable image hosting service such as <a href='http://imgur.com'>Imgur</a>.
+					</p>
+					<div class="input-append">
+						<input value='' class="span2" id="imageURL" type="text" style='font-size: 20px; height: 35px; width: 480px;'>
+						<button id='addImage' class="btn btn-primary" type="button" style='font-size: 20px; height: 35px;'>Upload</button>
+					</div>
+				</div>
 			</div>
 		</div>
-	</div>
-</div>
+		<div class='contentDiv' id='publishDialog' style='display: none;'>
+			<div class='contentBox'>
+				<div style='padding: 20px;'>
+					<h3>Publish Your Catalog</h3>
+					Email Address:<br />
+					<input value='' class="span2" id="emailAddress" type="text" style='font-size: 20px; height: 35px; width: 100%;'><br />
 
-<!-- body 0 -->
-<div class="container-fluid" id="empty" style="width: 300px; margin: auto; background: black; opacity: 1; border-radius: 10px; border: 1px solid whitesmoke; padding-top: 10px; padding-bottom: 10px;">
-  <ul class="nav nav-tabs">
-    <li class="active"><a href="#login" data-toggle="tab">Login</a></li>
-    <li><a href="#create" data-toggle="tab">Create Account</a></li>
-  </ul>
-  <div id="myTabContent" class="tab-content">
-    <div class="tab-pane active in" id="login">
-        <fieldset>
-          <div class="control-group">
-            <!-- Username -->
-            <label class="control-label"  for="username">Email</label>
-            <div class="controls">
-              <input type="text" id="username" placeholder="" class="input-xlarge validate" name="Email">
-            </div>
-          </div>
-
-          <div class="control-group">
-            <!-- Password-->
-            <label class="control-label" for="password">Password</label>
-            <div class="controls">
-              <input type="password" id="password" placeholder="" class="input-xlarge validate" name="Password">
-            </div>
-          </div>
-
-
-          <div class="control-group">
-            <!-- Button -->
-            <div class="controls">
-              <button class="btn btn-primary" id="login-submit">Login</button>
-            </div>
-          </div>
-        </fieldset>
-    </div>
-    <div class="tab-pane fade" id="create">
-        <label>Name</label>
-        <input type="text" value="" class="input-xlarge validate" name="Name">
-        <label>Email</label>
-        <input type="text" value="" class="input-xlarge validate" name="Email">
-        <label>Password</label>
-        <input type="password" value="" class="input-xlarge validate" name="Password">
-
-        <div>
-          <button class="btn btn-primary" id="createAccount">Create Account</button>
-        </div>
-    </div>
-	</div>
-</div>
-
-<!-- body 1 -->
-<div class="container-fluid" style="display:none;" id="user">
-	<header>
-		<h1 style="float:left;" >User Info</h1>
-	</header>
-	<br>
-</div>
-
-<!-- body 2 -->
-<div class="container-fluid" style="display:none;" id="pg">
-	<header>
-		<h1 style="float:left;">Product Gallery</h1>
-	</header>
-	<div id="gallery" data-toggle="modal-gallery" data-target="#modal-gallery" style="clear:both; width:100%; margin: 1%;"></div>
-	<br>
-</div>
-
-<!-- modal-gallery is the modal dialog used for the image gallery -->
-<div id="modal-gallery" class="modal modal-gallery hide fade" tabindex="-1">
-	<div class="modal-header">
-	<a class="close" data-dismiss="modal">&times;</a>
-	<h3 class="modal-title"></h3>
-	</div>
-	<div class="modal-body">
-		<div class="modal-image" style="float:left;"></div>
-		<div class="image-info"></div>
-	</div>
-	<div class="modal-footer">
-	<a class="btn btn-primary" target="_blank">
-		<span>Update</span>
-	</a>
-	<a class="btn btn-success modal-play modal-slideshow" data-slideshow="5000">
-		<i class="icon-play icon-white"></i>
-		<span>Slideshow</span>
-	</a>
-	<a class="btn btn-info modal-prev">
-		<i class="icon-arrow-left icon-white"></i>
-		<span>Previous</span>
-	</a>
-	<a class="btn btn-info modal-next">
-		<span>Next</span>
-		<i class="icon-arrow-right icon-white"></i>
-	</a>
-	</div>
-</div>
-
-</body>
-
-<script src='components/jquery/jquery.min.js'></script>
-<script src='components/bootstrap/bootstrap/js/bootstrap.min.js'></script>
-<script src="assets/js/load-image.min.js"></script>
-<script src="assets/js/bootstrap-image-gallery.js"></script>
-<script src="components/jquery-file-upload/js/vendor/jquery.ui.widget.js"></script>
-<!-- The Iframe Transport is required for browsers without support for XHR file uploads -->
-<script src="components/jquery-file-upload/js/jquery.iframe-transport.js"></script>
-<!-- The basic File Upload plugin -->
-<script src="components/jquery-file-upload/js/jquery.fileupload.js"></script>
-<!-- The File Upload file processing plugin -->
-<script src="components/jquery-file-upload/js/jquery.fileupload-fp.js"></script>
-<!-- The File Upload user interface plugin -->
-<script src="components/jquery-file-upload/js/jquery.fileupload-ui.js"></script>
-<script src="assets/js/main.js"></script>
-<script src="assets/js/js.js"></script>
+					<button id='publishButton' class="btn btn-primary" type="button" style='font-size: 20px; height: 35px; margin-top: 20px;'>Publish</button>
+				</div>
+			</div>
+		</div>
+		<div class='contentDiv' id='publishingDialog' style='display: none;'>
+			<div class='contentBox'>
+				<div style='padding: 20px;'>
+					<h3>Publishing...</h3>
+					<div class="progress progress-striped active">
+					  <div class="bar" id='publishProgress' style="width: 0%;"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class='contentDiv' id='doneDialog' style='display: none;'>
+			<div class='contentBox'>
+				<div style='padding: 20px;'>
+					<h3>Done</h3>
+					<p>You can access your catalog on the iPad and iPhone app using your email address and the following password:</p>
+					<div>
+						<p><b id='passwordOutput' style='font-size: 30px; margin-top: 20px; font-family: "Courier New"'>test</b></p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script src='components/jquery/jquery.min.js'></script>
+	<script src='components/bootstrap/bootstrap/js/bootstrap.min.js'></script>
+	<script src='assets/js/app.js'></script>
 </html>
