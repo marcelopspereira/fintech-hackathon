@@ -158,7 +158,7 @@ $('#login-submit').click(function(e) {
 		}
 	}
 	if(typeof invalid !== 'undefined') {
-		alert(notice); 
+//		alert(notice); 
 		return false;
 	}
 	
