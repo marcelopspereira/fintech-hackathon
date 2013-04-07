@@ -1,0 +1,13 @@
+[
+	{
+		"name" : "The One Ring",
+	  "description" : "One Ring to rule them all, One Ring to find them, One Ring to bring them all and in the darkness bind them",
+	   "price" : 0.99,
+	   "url" : "http://i.imgur.com/iQGUhTG.jpg?1"
+	},
+	{
+		"name" : "Incredible Sword of Sharpness",
+		"description" : "Vanquish mighty foes with one swing of this deadly weapon!",
+		"price" : 99, "url" : "http://i.imgur.com/Qfczjno.jpg"
+	}
+]

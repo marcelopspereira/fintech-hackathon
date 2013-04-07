@@ -1,11 +1,11 @@
 // Used for determining info about the machine the server is running on.
 var	validator     = require(process.cwd()+'/src/validationFilter.js'),
 		async					= require('async'),
-		passwordHash  = require('password-hash'),
-		Session				= require(process.cwd()+'/src/models/session.js').model,
-		User					= require(process.cwd()+'/src/models/user.js').model,
-		crypto				= require('crypto'),
-		sessionFilter = require(process.cwd()+'/src/sessionFilter.js');
+		Product				= require(process.cwd()+'/src/models/product.js').model,
+		sessionFilter = require(process.cwd()+'/src/sessionFilter.js'),
+		mongoose      = require('mongoose'),
+		assert				= require('assert'),
+		ObjectId      = mongoose.Types.ObjectId;
 
 module.exports = function (server, db, packageManifest, log) {
 
@@ -20,10 +20,21 @@ module.exports = function (server, db, packageManifest, log) {
 				result = validator.validateAgainstSchema(req, res, 'productPost');
 				if(result === true)
 				{
-					res.send(req.body);
+					productData = req.body;
+					productData.user = userID;
+
+					var newProduct = new Product(productData);
+					newProduct.save(function (err) {
+						assert.ifError(err);
+						res.send(productData);
+					});
 				}
 			}
 		});
 	});
+
+	server.get('/api/products', function (req, res) {
+
+	})
 
 };

@@ -1,7 +1,12 @@
-var mongoose = require('mongoose');
+var mongoose    = require('mongoose'),
+		Schema      = mongoose.Schema,
+		ObjectId    = mongoose.Types.ObjectId;
 
 var schema = new mongoose.Schema({
-	user: String,
+	user: {
+		type: Schema.ObjectId,
+		ref: 'User'
+	},
 	name: String,
 	description: String,
 	price: Number,
