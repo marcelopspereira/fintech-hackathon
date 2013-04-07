@@ -76,6 +76,13 @@ async.series({
 				app.configure(function () {
 					app.use(express.bodyParser());
 					app.use(express.methodOverride());
+					app.use(function(req, res, next){
+						log.info({
+							headers: req.headers,
+							body: req.body
+						});
+						next();
+					});
 					app.use(app.router);
 					app.use(express.static(__dirname+'/public'));
 					app.use(function (err, req, res, next) {
