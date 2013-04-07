@@ -80,7 +80,7 @@ async.series({
 					require('./src/routes/session.js')(app, db, packageManifest, log)
 				];
 
-				app.listen(8080, function (server) {
+				app.listen(1337, function (server) {
 					log.info("Server started and listening.");
 				});
 			}

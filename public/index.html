@@ -4,6 +4,8 @@
 	<link href='components/bootstrap/bootstrap/css/bootstrap.min.css' rel='stylesheet' />
 	<link href='components/bootstrap/bootstrap/css/bootstrap-responsive.min.css' type='stylesheet' />
 	<link href="assets/css/bootstrap-image-gallery.min.css" rel="stylesheet" />
+	<link rel="stylesheet" href="components/jquery-file-upload/css/jquery.fileupload-ui.css">
+	<noscript><link rel="stylesheet" href="components/jquery-file-upload/css/jquery.fileupload-ui-noscript.css"></noscript>
 	<style type="text/css">
 	body {
 		padding-top: 60px;
@@ -57,7 +59,7 @@
 </div>
 
 <!-- body 0 -->
-<div class="container-fluid" id="empty" style="width: 50%; min-width: 300px; margin: auto; background: black; opacity: 1; border-radius: 10px; border: 1px solid whitesmoke; padding-top: 10px;">
+<div class="container-fluid" id="empty" style="width: 300px; margin: auto; background: black; opacity: 1; border-radius: 10px; border: 1px solid whitesmoke; padding-top: 10px; padding-bottom: 10px;">
   <ul class="nav nav-tabs">
     <li class="active"><a href="#login" data-toggle="tab">Login</a></li>
     <li><a href="#create" data-toggle="tab">Create Account</a></li>
@@ -67,9 +69,9 @@
         <fieldset>
           <div class="control-group">
             <!-- Username -->
-            <label class="control-label"  for="username">Username</label>
+            <label class="control-label"  for="username">Email</label>
             <div class="controls">
-              <input type="text" id="username" name="username" placeholder="" class="input-xlarge">
+              <input type="text" id="username" placeholder="" class="input-xlarge validate" name="Email">
             </div>
           </div>
 
@@ -77,7 +79,7 @@
             <!-- Password-->
             <label class="control-label" for="password">Password</label>
             <div class="controls">
-              <input type="password" id="password" name="password" placeholder="" class="input-xlarge">
+              <input type="password" id="password" placeholder="" class="input-xlarge validate" name="Password">
             </div>
           </div>
 
@@ -91,23 +93,16 @@
         </fieldset>
     </div>
     <div class="tab-pane fade" id="create">
-      <form id="tab">
-        <label>Username</label>
-        <input type="text" value="" class="input-xlarge">
-        <label>First Name</label>
-        <input type="text" value="" class="input-xlarge">
-        <label>Last Name</label>
-        <input type="text" value="" class="input-xlarge">
+        <label>Name</label>
+        <input type="text" value="" class="input-xlarge validate" name="Name">
         <label>Email</label>
-        <input type="text" value="" class="input-xlarge">
-        <label>Address</label>
-        <textarea value="Smith" rows="3" class="input-xlarge">
-        </textarea>
+        <input type="text" value="" class="input-xlarge validate" name="Email">
+        <label>Password</label>
+        <input type="password" value="" class="input-xlarge validate" name="Password">
 
         <div>
-          <button class="btn btn-primary">Create Account</button>
+          <button class="btn btn-primary" id="createAccount">Create Account</button>
         </div>
-      </form>
     </div>
 	</div>
 </div>
@@ -164,6 +159,15 @@
 <script src='components/bootstrap/bootstrap/js/bootstrap.min.js'></script>
 <script src="assets/js/load-image.min.js"></script>
 <script src="assets/js/bootstrap-image-gallery.js"></script>
+<script src="components/jquery-file-upload/js/vendor/jquery.ui.widget.js"></script>
+<!-- The Iframe Transport is required for browsers without support for XHR file uploads -->
+<script src="components/jquery-file-upload/js/jquery.iframe-transport.js"></script>
+<!-- The basic File Upload plugin -->
+<script src="components/jquery-file-upload/js/jquery.fileupload.js"></script>
+<!-- The File Upload file processing plugin -->
+<script src="components/jquery-file-upload/js/jquery.fileupload-fp.js"></script>
+<!-- The File Upload user interface plugin -->
+<script src="components/jquery-file-upload/js/jquery.fileupload-ui.js"></script>
 <script src="assets/js/main.js"></script>
 <script src="assets/js/js.js"></script>
 </html>
