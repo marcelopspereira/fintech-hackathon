@@ -41,32 +41,11 @@ function publishProduct(productNumber,token)
 		description: $("#product_number_"+productNumber+' .productDescription').attr('value'),
 		price: eval($("#product_number_"+productNumber+' .productPrice').attr('value'))
 	};
-
-	$.ajax({
-		url: '/api/product',
-		type: "POST",
-		dataType: "json",
-		contentType: "application/json",
-		headers: {
-			token: token,
-			application: 'web'
-		},
-		data: JSON.stringify(productDetails),
-		statusCode: {
-			409: function () {
-				alert("Failure saving product "+productNumber);
-			}
-		},
-		success: function(response) {
-
-			//Now use the session token to add each product.
-			advanceProgressBar();
-		}
-	});
 }
 
 $(function () {
 	$('#addImage').click(function () {
+		$('body').css("background", "url('/assets/img/grey_wash_wall.png')");
 		//Hide the add image dialog.
 		$('#addImageDialog').fadeOut(100,function () {
 			//Show the image.
@@ -142,5 +121,12 @@ $(function () {
 		$(this).parent().remove();
 		$('#addImageDialog').fadeIn(100);
 		$("html, body").animate({ scrollTop: $("#addImageDialog").offset().top });
+	});
+
+	$('.signIn').on('click', function(e) {
+		$('#welcome').hide(); $('#login').show();
+	});
+	$('.continue').on('click', function(e) {
+		$('#entry').hide(); $('#addImageDialog').show();
 	});
 });
