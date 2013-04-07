@@ -1,74 +1,52 @@
 Fintech Hackathon Entry
 =======================
 
-The initial API stub for our entry to the Fintech Hackathon.
+The initial API stub for our entry to the Fintech Hackathon. Currently running live on OpenShift at:
+
+[http://fintech-fintechhackathon.rhcloud.com/](http://fintech-fintechhackathon.rhcloud.com/)
 
 1. Run `npm install` to download and set up all required libraries.
 2. Start a MongoDB instance locally, or modify the configuration file to point to an existing DB.
 3. Run `launch.sh` to start the server, note that this launch script requires `supervisor` to run.
    It can be installed with `npm install -g supervisor`
 
+Backend Technologies
+====================
+
+* [Node.js](http://nodejs.org/)
+* [MongoDB](http://www.mongodb.org/)
+* [OpenShift](https://www.openshift.com/)
+* [Express](http://expressjs.com/)
+* [Mongoose](http://mongoosejs.com/)
+* [Bunyan](https://github.com/trentm/node-bunyan)
+
 Repo layout
 ===========
-node_modules/                       - Any Node modules packaged with the app
-package.json                        - npm package descriptor.
-.openshift/                         - Location for openshift specific files
-.openshift/action_hooks/pre_build   - Script that gets run every git push before
-                                      the build
-.openshift/action_hooks/build       - Script that gets run every git push as
-                                      part of the build process (on the CI
-                                      system if available)
-.openshift/action_hooks/deploy      - Script that gets run every git push after
-                                      build but before the app is restarted
-.openshift/action_hooks/post_deploy - Script that gets run every git push after
-                                      the app is restarted
 
-Notes about layout
-==================
-Please leave the node_modules and .openshift directories but feel free to
-create additional directories if needed.
+    +-------------------------------------+---------------------------------------+
+    |                Item                 |              Description              |
+    +-------------------------------------+---------------------------------------+
+    | .openshift/                         | OpenShift deployment recipe           |
+    | .openshift/action_hooks/pre_build   | Run after every git push pre buidl.   |
+    | .openshift/action_hooks/build       | The build script                      |
+    | .openshift/action_hooks/deploy      | Run after build completes             |
+    | .openshift/action_hooks/post_deploy | Runs after app restarts               |
+    | /src                                | Backend source                        |
+    | /schemas                            | Backend and API schemas               |
+    | /public                             | Frontend source                       |
+    | package.json                        | Project meta data and dependency list |
+    | config.json                         | MongoDB connection info               |
+    | launch.sh                           | Starts the server                     |
+    | server.js                           | The server itself                     |
+    +-------------------------------------+---------------------------------------+
 
-Note: Every time you push, everything in your remote repo dir gets recreated
-      please store long term items (like an sqlite database) in the OpenShift
-      data directory, which will persist between pushes of your repo.
-      The OpenShift data directory is accessible relative to the remote repo
-      directory (../data) or via an environment variable OPENSHIFT_DATA_DIR.
+Environment Configuration
+=========================
 
+When running locally the server will bind to localhost port 8080. When deployed on OpenShift
+it will bind to whatever address and port that OpenShift defines via the environment variables.
 
-Environment Variables
-=====================
-OpenShift provides several environment variables to reference for ease
-of use.  The following list are some common variables but far from exhaustive:
-    process.env.OPENSHIFT_GEAR_NAME  - Application name
-    process.env.OPENSHIFT_GEAR_DIR   - Application dir
-    process.env.OPENSHIFT_DATA_DIR  - For persistent storage (between pushes)
-    process.env.OPENSHIFT_TMP_DIR   - Temp storage (unmodified files deleted after 10 days)
-
-When embedding a database using 'rhc app cartridge add', you can reference environment
-variables for username, host and password:
-    process.env.OPENSHIFT_DB_HOST      - DB Host
-    process.env.OPENSHIFT_DB_PORT      - DB Port
-    process.env.OPENSHIFT_DB_USERNAME  - DB Username
-    process.env.OPENSHIFT_DB_PASSWORD  - DB Password
-
-When embedding a NoSQL database using 'rhc app cartridge add', you can reference environment
-variables for username, host and password:
-    process.env.OPENSHIFT_NOSQL_DB_HOST      - NoSQL DB Host
-    process.env.OPENSHIFT_NOSQL_DB_PORT      - NoSQL DB Port
-    process.env.OPENSHIFT_NOSQL_DB_USERNAME  - NoSQL DB Username
-    process.env.OPENSHIFT_NOSQL_DB_PASSWORD  - NoSQL DB Password
-
-To get a full list of environment variables, simply add a line in your
-.openshift/action_hooks/build script that says "export" and push.
-
-
-deplist.txt
-===========
-A list of node modules to install, line by line on the server. This will happen
-when the user does a git push.
-
-
-Additional information
-======================
-Link to additional information will be here, when we have it :)
+When running locally it will attempt to connect to a local MongoDB instance without authentication.
+When running on OpenShift it will connect to the MongoDB database specified in the environment
+variables.
 
