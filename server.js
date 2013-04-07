@@ -95,7 +95,21 @@ async.series({
 					console.log('error');
 				});
 
-				app.listen(8080, function (server) {
+				//Determine what port / address we are listening on.
+				if(process.env.OPENSHIFT_INTERNAL_IP!==undefined)
+				{
+					log.info('Running server in OpenShift');
+					port = process.env.OPENSHIFT_INTERNAL_PORT;
+					hostname = process.env.OPENSHIFT_INTERNAL_HOSTNAME;
+				}
+				else
+				{
+					log.info('Running server locally');
+					port = 8080;
+					hostname = '127.0.0.1';
+				}
+
+				app.listen(port, hostname, function (server) {
 					log.info("Server started and listening...");
 				});
 			}
