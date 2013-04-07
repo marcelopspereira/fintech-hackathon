@@ -5,7 +5,28 @@ String.prototype.format = function() {
   });
 };
 
-var config = new Object();
+var config = {};
+var testData = [
+	{
+		"name" : "The One Ring",
+		"description" : "One Ring to rule them all, One Ring to find them, One Ring to bring them all and in the darkness bind them",
+		"price" : 0.99,
+		"url" : "http://i.imgur.com/iQGUhTG.jpg?1"
+	},
+	{
+		"name" : "Incredible Sword of Sharpness",
+		"description" : "Vanquish mighty foes with one swing of this deadly weapon!",
+		"price" : 99,
+		"url" : "http://i.imgur.com/Qfczjno.jpg"
+	},
+	{
+		"name" : "Daedric Armor",
+		"description" : "This masterwork armor will protect you from dangers of all sorts.",
+		"price" : 99,
+		"url" : "http://i.imgur.com/krvXksZ.jpg"
+	}
+];
+
 function password()
 {
     var text = "";
@@ -19,6 +40,11 @@ function password()
 var productNumber = 0;
 var progressAmount = 0;
 var currentProgress = 0;
+
+$('#imageURL').val(testData[productNumber].url);
+$("#product_number_"+productNumber+' .productName').attr('value',testData[productNumber].name);
+$("#product_number_"+productNumber+' .productDescription').attr('value',testData[productNumber].description);
+$("#product_number_"+productNumber+' .productPrice').attr('value',testData[productNumber].price);
 
 function advanceProgressBar()
 {
@@ -84,8 +110,11 @@ $(function () {
 			$("#main").append(product);
 			$("#product_number_"+productNumber).fadeIn(100);
 			$("html, body").animate({ scrollTop: $("#product_number_"+productNumber).offset().top });
+			$("#product_number_"+productNumber+' .productName').attr('value',testData[productNumber].name);
+			$("#product_number_"+productNumber+' .productDescription').attr('value',testData[productNumber].description);
+			$("#product_number_"+productNumber+' .productPrice').attr('value',testData[productNumber].price);
 			productNumber++;
-			$('#imageURL').val('');
+			$('#imageURL').val(testData[productNumber].url);
 		});
 	});
 
@@ -219,6 +248,7 @@ $('#login-submit').click(function(e) {
 	$('#main').on('click', '#nextItem', function () {
 		$(this).parent().remove();
 		$('#addImageDialog').fadeIn(100);
+		$('#imageURL').val(testData[productNumber].url);
 		$("html, body").animate({ scrollTop: $("#addImageDialog").offset().top });
 	});
 
