@@ -36,9 +36,19 @@ var log = bunyan.createLogger({
 async.series({
 
     mongoose: function(callback){
-			log.info('Connecting to MongoDB...');
 
-			mongoose.connect(config.mongodb),
+			if(process.env.OPENSHIFT_MONGODB_DB_URL!==undefined)
+			{
+				log.info('Connecting to OpenShift MongoDB cartridge...');
+				connectionString = process.env.OPENSHIFT_MONGODB_DB_URL;
+			}
+			else
+			{
+				log.info('Connecting to local MongoDB...');
+				connectionString = config.mongodb; //Use the connection string loaded from local config file.
+			}
+
+			mongoose.connect(connectionString),
 			db = mongoose.connection;
 
 			//If the connection fails.
@@ -56,7 +66,7 @@ async.series({
 			});
     },
 
-    restify: function(callback){
+    express: function(callback){
 			log.info('Creating server...');
 
 			try
@@ -77,11 +87,30 @@ async.series({
 				var routes = [
 					require('./src/routes/main.js')(app, db, packageManifest, log),
 					require('./src/routes/user.js')(app, db, packageManifest, log),
-					require('./src/routes/session.js')(app, db, packageManifest, log)
+					require('./src/routes/session.js')(app, db, packageManifest, log),
+					require('./src/routes/product.js')(app, db, packageManifest, log)
 				];
 
-				app.listen(1337, function (server) {
-					log.info("Server started and listening.");
+				app.on('error', function (stream) {
+					console.log('error');
+				});
+
+				//Determine what port / address we are listening on.
+				if(process.env.OPENSHIFT_NODEJS_IP!==undefined)
+				{
+					log.info('Running server in OpenShift');
+					port = process.env.OPENSHIFT_NODEJS_PORT;
+					hostname = process.env.OPENSHIFT_NODEJS_IP;
+				}
+				else
+				{
+					log.info('Running server locally');
+					port = 8080;
+					hostname = '127.0.0.1';
+				}
+
+				app.listen(port, hostname, function (server) {
+					log.info("Server started and listening...");
 				});
 			}
 			catch(e)

@@ -1,6 +1,5 @@
 // Used for determining info about the machine the server is running on.
 var	validator     = require(process.cwd()+'/src/validationFilter.js'),
-		restify       = require('restify'),
 		async					= require('async'),
 		passwordHash  = require('password-hash'),
 		Session				= require(process.cwd()+'/src/models/session.js').model,
@@ -82,8 +81,8 @@ module.exports = function (server, db, packageManifest, log) {
 			else
 			{
 				res.send(200, {
-					'code': 'Good',
-					'message': userID
+					'user': userID,
+					'message': 'Session credentials are good'
 				});
 			}
 		});
