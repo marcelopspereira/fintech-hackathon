@@ -27,6 +27,7 @@ module.exports = {
 				}
 				else
 				{
+					console.log(session);
 					callback(session.user);
 				}
 			}

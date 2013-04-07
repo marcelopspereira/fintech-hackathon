@@ -1,0 +1,53 @@
+<html>
+	<head>
+		<link href='components/bootstrap/bootstrap/css/bootstrap.min.css' rel='stylesheet' />
+		<link href='components/bootstrap/bootstrap/css/bootstrap-responsive.min.css' type='stylesheet' />
+		<link href="assets/css/custom.css" rel="stylesheet" />
+
+		<script type="text/template" id="productTemplate">
+			<div class='contentDiv' id='product_number_{1}' style='display: none;'>
+				<div class='contentBox'>
+					<img src='{0}' />
+
+					<div style='padding: 20px;'>
+						Product Name:<br />
+						<input value='Daedric Armor' class="span2" class="productName" type="text" style='font-size: 20px; height: 35px; width: 100%;'><br />
+
+						Product Description:<br />
+						<input value='This armor can protect you from pretty much any attack. ' class="span2" id="productDescription" type="text" style='font-size: 20px; height: 35px; width: 100%;'><br />
+
+						Product Price:<br />
+						<input value='5720' class="span2" id="productPrice" type="text" style='font-size: 20px; height: 35px; width: 100%'><br />
+
+						<div class='theButtons'>
+							<input type='button' class='btn btn-large' id='nextItem' value='Save & Add Another Product' style='margin-top: 20px;'/>
+							<input type='button' class='btn btn-large' id='publish' value='Publish' style='margin-top: 20px;'/>
+						</div>
+					</div>
+				</div>
+			</div>
+		</script>
+	</head>
+
+	<body style='margin-top: 50px; margin-bottom: 50px;'>
+		<div id='main'>
+		</div>
+		<div class='contentDiv' id='addImageDialog'>
+				<div class='contentBox'>
+					<div style='padding: 20px;'>
+						<h3>Create A Product</h3>
+						<p>
+							To get started enter the URL of a product image. We recommend a free, reliable image hosting service such as <a href='http://imgur.com'>Imgur</a>.
+						</p>
+						<div class="input-append">
+							<input value='http://i.imgur.com/krvXksZ.jpg' class="span2" id="imageURL" type="text" style='font-size: 20px; height: 35px; width: 480px;'>
+							<button id='addImage' class="btn btn-primary" type="button" style='font-size: 20px; height: 35px;'>Upload</button>
+						</div>
+					</div>
+				</div>
+			</div>
+	</body>
+	<script src='components/jquery/jquery.min.js'></script>
+	<script src='components/bootstrap/bootstrap/js/bootstrap.min.js'></script>
+	<script src='assets/js/app.js'></script>
+</html>
