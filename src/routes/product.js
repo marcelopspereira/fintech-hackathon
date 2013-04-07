@@ -9,6 +9,7 @@ var	validator     = require(process.cwd()+'/src/validationFilter.js'),
 
 module.exports = function (server, db, packageManifest, log) {
 
+	//Add a new product for a user.
 	server.post('/api/product', function (req, res) {
 		sessionFilter.validate(req, res, function (userID) {
 			if(userID===null)
@@ -33,8 +34,36 @@ module.exports = function (server, db, packageManifest, log) {
 		});
 	});
 
+	//Get products owned by a user.
 	server.get('/api/products', function (req, res) {
+		sessionFilter.validate(req, res, function (userID) {
+			if(userID===null)
+			{
+				return;
+			}
+			else
+			{
+				//Look up the objects owned by a user and return them.
+				Product
+					.find({user: userID})
+					.exec(function (err, products) {
+						if (err) return done(err);
 
-	})
+						var responseProducts = [];
+						products.forEach(function (product) {
+							responseProducts.push({
+								id: product._id,
+								name: product.name,
+								url: product.url,
+								price: product.price,
+								description: product.description
+							});
+						});
+						res.send(responseProducts);
+						done();
+					});
+			}
+		});
+	});
 
 };
