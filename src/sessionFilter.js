@@ -27,7 +27,7 @@ module.exports = {
 				}
 				else
 				{
-					callback(session._id);
+					callback(session.user);
 				}
 			}
 		});
